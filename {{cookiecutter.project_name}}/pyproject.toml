@@ -20,15 +20,21 @@ psycopg2-binary = "^2.8.6"
 appdirs = "1.4.4"
 
 [tool.poetry.dev-dependencies]
+{%- if cookiecutter.use_isort == "y" %}
 isort = "5.6.4"
+{%- endif %}
+{%- if cookiecutter.use_flake8 == "y" %}
 flake8 = "3.8.4"
+{%- endif %}
+{%- if cookiecutter.use_black == "y" %}
 black = "20.8b1"
+{%- endif %}
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-
+{%- if cookiecutter.use_isort == "y" %}
 [tool.isort]
 line_length = 99
 multi_line_output = 3
@@ -39,7 +45,9 @@ ensure_newline_before_comments = true
 skip = [
     'app/__main__.py',
 ]
+{%- endif %}
 
+{% if cookiecutter.use_black == "y" -%}
 [tool.black]
 skip-string-normalization = true
 line-length = 99
@@ -52,3 +60,4 @@ exclude = '''
 )/
 | /pgdata
 '''
+{%- endif %}
