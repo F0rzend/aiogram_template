@@ -11,7 +11,6 @@ from app.models import base
 
 
 async def on_startup(dispatcher: Dispatcher):
-    await utils.setup_logger("INFO", ["sqlalchemy.engine", "aiogram.bot.api"])
     await base.connect(config.POSTGRES_URI)
     await utils.setup_default_commands(dispatcher)
     await utils.notify_admins(config.SUPERUSER_ID)
@@ -22,6 +21,7 @@ async def on_shutdown(dispatcher: Dispatcher):
 
 
 if __name__ == '__main__':
+    utils.setup_logger("INFO", ["sqlalchemy.engine", "aiogram.bot.api"])
     executor.start_polling(
         dp, on_startup=on_startup, on_shutdown=on_shutdown, skip_updates=config.SKIP_UPDATES
     )
