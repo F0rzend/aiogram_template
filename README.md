@@ -83,7 +83,7 @@ Template based on [Forden's template](https://github.com/Forden/aiogram-bot-temp
         * inline
         * reply
     * middlewares — module with aiogram middlewares
-    * models — module with batabase models
+    * models — module with database models
     * states — module aiogram state groups 
     * utils — module with any project utils
     * __main__.py — Entrypoint
