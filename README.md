@@ -18,7 +18,7 @@ Template based on [Forden's template](https://github.com/Forden/aiogram-bot-temp
 
 2. Install requirements
    ```cmd
-   $ poetry update && poetry install
+   $ poetry install
    ```
 3. Apply alembic migrations
    ```cmd
