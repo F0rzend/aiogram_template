@@ -12,7 +12,7 @@ from app.models import base
 
 async def on_startup(dispatcher: Dispatcher):
     await utils.setup_logger("INFO", ["sqlalchemy.engine", "aiogram.bot.api"])
-    await base.connect(config.POSTGRES_URI)
+    await base.connect(config.TORTOISE_CONFIG)
     await utils.setup_default_commands(dispatcher)
     await utils.notify_admins(config.ADMINS_ID)
 

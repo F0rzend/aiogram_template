@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from environs import Env
+from pytz import timezone
 
 env = Env()
 env.read_env()
@@ -21,4 +22,19 @@ POSTGRES_PORT = env.int("POSTGRES_PORT", default=5432)
 POSTGRES_DB = env.str("POSTGRES_DB")
 POSTGRES_USER = env.str("POSTGRES_USER")
 POSTGRES_PASSWORD = env.str("POSTGRES_PASSWORD")
-POSTGRES_URI = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+POSTGRES_URI = f"postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
+
+TORTOISE_CONFIG = {
+    'connections': {
+        # Using a DB_URL string
+        'default': POSTGRES_URI
+    },
+    'apps': {
+        'bot': {
+            'models': ["app.models", "aerich.models"],
+            # If no default_connection specified, defaults to 'default'
+            'default_connection': 'default',
+        }
+    },
+    'use_tz': False,
+}

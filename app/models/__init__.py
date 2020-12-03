@@ -1,2 +1,2 @@
-from .chat import Chat
-from .user import User
+from app.models.chat import Chat
+from app.models.user import User

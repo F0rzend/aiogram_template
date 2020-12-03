@@ -3,7 +3,7 @@
 set -e
 
 if [ -n "${RUN_MIGRATIONS}" ]; then
-  alembic upgrade head
+  aerich upgrade
 fi
 
 exec python -O -m app
