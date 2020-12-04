@@ -28,16 +28,16 @@ lint: isort black flake8
 # ================================================================================================
 
 alembic:
-	poetry run alembic ${args}
+	aerich ${args}
 
 migrate:
-	poetry run alembic upgrade head
+	aerich upgrade
 
 makemigrations:
-	poetry run alembic revision --autogenerate -m "${message}"
+	aerich migrate --name drop_column "${message}"
 
 downgrade:
-	poetry run alembic downgrade -1
+	aerich downgrade
 
 # ================================================================================================
 # Docker
