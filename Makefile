@@ -27,7 +27,7 @@ lint: isort black flake8
 # Migrations
 # ================================================================================================
 
-alembic:
+aerich:
 	aerich ${args}
 
 migrate:
