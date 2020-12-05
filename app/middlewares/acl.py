@@ -13,8 +13,8 @@ class ACLMiddleware(BaseMiddleware):
         chat_id = chat.id if chat else user.id
         chat_type = chat.type if chat else "private"
 
-        user = User.get_or_create(id=user_id)
-        chat = Chat.get_or_create(id=chat_id, type=chat_type)
+        user = await User.get_or_create(id=user_id)
+        chat = await Chat.get_or_create(id=chat_id, type=chat_type)
 
         data["user"] = user
         data["chat"] = chat
