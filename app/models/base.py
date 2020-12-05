@@ -3,19 +3,23 @@ from tortoise import Tortoise, fields, models
 
 
 class BaseModel(models.Model):
-    __abstract__ = True
 
     def __str__(self):
         model = self.__class__.__name__
         values_str = {field: getattr(self, field) for field in self._meta.db_fields}
         return f"<{model} {values_str}>"
 
+    class Meta:
+        abstract = True
+
 
 class TimedBaseModel(BaseModel):
-    __abstract__ = True
 
     created_at = fields.DatetimeField(auto_now_add=True)
     updated_at = fields.DatetimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
 
 
 async def connect(tortoise_config: dict):

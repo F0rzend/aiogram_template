@@ -34,7 +34,7 @@ migrate:
 	aerich upgrade
 
 makemigrations:
-	aerich migrate --name drop_column "${message}"
+	aerich migrate --name "${message}"
 
 downgrade:
 	aerich downgrade
