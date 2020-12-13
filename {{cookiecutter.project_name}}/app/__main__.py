@@ -13,7 +13,7 @@ from app.models import base
 async def on_startup(dispatcher: Dispatcher):
     await base.connect(config.POSTGRES_URI)
     await utils.setup_default_commands(dispatcher)
-    await utils.notify_admins(config.SUPERUSER_ID)
+    await utils.notify_admins(config.SUPERUSER_IDS)
 
 
 async def on_shutdown(dispatcher: Dispatcher):
