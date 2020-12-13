@@ -3,7 +3,7 @@ from aiogram import Bot, Dispatcher, types
 {%- if cookiecutter.use_redis == "y" %}
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
 {%- else %}
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.contrib.fsm_storage.files import JSONStorage
 {%- endif %}
 
 from gino import Gino
@@ -22,7 +22,7 @@ storage = RedisStorage2(
     port=config.REDIS_PORT,
 )
 {% else %}
-storage = MemoryStorage()
+storage = JSONStorage(config.WORK_PATH.joinpath('app', 'storage.json'))
 {% endif %}
 dp = Dispatcher(
     bot=bot,
