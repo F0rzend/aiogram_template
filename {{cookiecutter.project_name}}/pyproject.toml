@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "{{ cookiecutter.project_name }}"
 version = "{{ cookiecutter.version }}"
-description = ""
+description = "{{ cookiecutter.project_description }}"
 authors = ["0Kit <kostyajog@mail.ru>"]
 packages = [
     { include = "app" }
