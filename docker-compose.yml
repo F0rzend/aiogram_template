@@ -12,14 +12,14 @@ services:
     ports:
       - 5432:5432
     volumes:
-    - ./pgdata:/var/lib/postgresql/data
+    - .postgresql:/var/lib/postgresql
 
   redis:
     container_name: redis
     image: redis:alpine
     restart: on-failure
     volumes:
-      - /redis-data:/var/lib/redis
+      - .redis:/var/lib/redis
     ports:
       - 6379:6379
 
@@ -33,6 +33,7 @@ services:
     environment:
       REDIS_HOST: redis
       POSTGRES_HOST: db
+      RUN_MIGRATIONS: 'true'
     depends_on:
       - db
       - redis
