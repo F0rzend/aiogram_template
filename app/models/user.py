@@ -3,7 +3,7 @@ from __future__ import annotations
 from sqlalchemy.sql import Select, expression
 
 from app.misc import db
-from app.models.base import BaseModel, TimedBaseModel
+from app.models.base import TimedBaseModel
 
 
 class User(TimedBaseModel):
@@ -14,9 +14,7 @@ class User(TimedBaseModel):
     query: Select
 
 
-class UserRelatedModel(BaseModel):
-    __abstract__ = True
-
+class UserRelatedMixin:
     user_id = db.Column(
         db.ForeignKey(f"{User.__tablename__}.id", ondelete="CASCADE", onupdate="CASCADE"),
         nullable=False,

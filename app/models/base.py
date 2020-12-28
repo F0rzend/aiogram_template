@@ -1,9 +1,9 @@
+import logging
 from contextlib import suppress
 from typing import List
 
 import sqlalchemy as sa
 from gino import UninitializedError
-from loguru import logger
 from sqlalchemy import Column, DateTime
 
 from app.misc import db
@@ -23,6 +23,12 @@ class BaseModel(db.Model):
         values_str = " ".join(f"{name}={value!r}" for name, value in values.items())
         return f"<{model} {values_str}>"
 
+    @classmethod
+    async def clear(cls):
+        await cls.gino.drop()
+        await cls.gino.create()
+        logging.warning(f'Table {cls.__table__} was cleared')
+
 
 class TimedBaseModel(BaseModel):
     __abstract__ = True
@@ -35,10 +41,10 @@ class TimedBaseModel(BaseModel):
 
 async def connect(postgres_uri):
     await db.set_bind(postgres_uri)
-    logger.info('PostgreSQL is successfully configured')
+    logging.info('PostgreSQL is successfully configured')
 
 
 async def close_connection():
     with suppress(UninitializedError):
-        logger.info('Closing a database connection')
+        logging.info('Closing a database connection')
         await db.pop_bind().close()

@@ -1,5 +1,5 @@
 from aiogram import types
-from loguru import logger
+import logging
 
 
 async def setup_default_commands(dp):
@@ -8,4 +8,4 @@ async def setup_default_commands(dp):
             types.BotCommand("start", "start"),
         ]
     )
-    logger.info('Standard commands are successfully configured')
+    logging.info('Standard commands are successfully configured')
