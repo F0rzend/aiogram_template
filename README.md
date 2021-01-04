@@ -7,6 +7,7 @@
 
 Template based on [Forden's template](https://github.com/Forden/aiogram-bot-template) for creating scalable bots with aiogram
 
+It was decided to abandon the cookiecutter, as the template support is too complicated. You can find the new template at the following address https://github.com/F0rzend/aiogram-template
 
 ## Setting up
 
