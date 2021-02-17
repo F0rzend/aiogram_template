@@ -4,14 +4,8 @@ import os
 from collections import ChainMap
 from typing import NoReturn
 
-from yaml import load
-
 from bot.main import main
-
-try:
-    from yaml import CLoader as Loader
-except ImportError:
-    from yaml import Loader
+from bot.utils import parse_config
 
 
 def get_parser():
@@ -29,7 +23,5 @@ def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
     cli_arguments = {key: value for key, value in vars(args).items() if value}
     arguments = ChainMap(cli_arguments, environment_variables)
 
-    with open(arguments["config"]) as f:
-        config = load(stream=f, Loader=Loader)
-
+    config = parse_config(arguments["config"])
     asyncio.run(main(config))

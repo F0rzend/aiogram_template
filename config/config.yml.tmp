@@ -1,2 +1,9 @@
-bot:
-  token:
+app:
+    # Telegram Bot API Token
+    bot:
+        token: {TOKEN}
+        parse_mode: html
+
+    # Modules to load
+    modules:
+        - handlers.private.start
