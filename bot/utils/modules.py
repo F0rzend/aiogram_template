@@ -25,7 +25,6 @@ class ModuleManager:
             for module in mod_paths
             if isfile(module)
             and module.endswith(".py")
-            and not module.endswith("__init__.py")
         ]
 
         for module in all_modules:

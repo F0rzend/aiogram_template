@@ -1,6 +1,5 @@
 from typing import Any
 
-from aiogram import Dispatcher
 from aiogram.dispatcher.handler import MessageHandler
 
 
@@ -13,7 +12,3 @@ class StartHandler(MessageHandler):
 
     async def handle(self) -> Any:
         await self.event.answer(f"<b>Hello, {self.from_user.full_name}!</b>")
-
-
-def setup(dp: Dispatcher):
-    dp.message.register(StartHandler, commands=["start"])
