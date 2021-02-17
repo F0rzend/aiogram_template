@@ -6,7 +6,6 @@ help:
 	@echo ""
 	@echo "AVAILABLE COMMANDS"
 	@echo "  install	Install dependencies"
-	@echo "  run		Start a bot"
 	@echo "  update	Update dependencies"
 	@echo "  flake		Run flake8"
 	@echo "  black		Run black"
