@@ -1,5 +1,10 @@
-default:help
+.DEFAULT_GOAL := help
 
+base_python := python3
+py := poetry run
+python := $(py) python
+
+.PHONY: help
 help:
 	@echo "USAGE"
 	@echo "  make <commands>"
@@ -13,26 +18,29 @@ help:
 	@echo "  lint		Reformat code"
 
 
-# ========
+# ================================================================================================
 # Commands
-# ========
+# ================================================================================================
 
+.PHONY: install
 install:
 	poetry install
 
+.PHONY: update
 update:
 	poetry update
 
+.PHONY:	black
 black:
-	poetry run python -m black .
+	$(python) -m black .
 
+.PHONY: isort
 isort:
-	poetry run python -m isort .
+	$(python) -m isort .
 
+.PHONY: flake
 flake:
-	poetry run python -m flake8 .
+	$(python) -m flake8 .
 
-lint:
-	$(MAKE) black
-	$(MAKE) isort
-	$(MAKE) flake
+.PHONY: lint
+lint: black isort flake
