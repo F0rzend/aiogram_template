@@ -5,5 +5,8 @@ app:
         parse_mode: html
 
     # Modules to load
+    # Importing certain modules: handlers.echo
+    # Importing certain folder: handlers; handlers/private
+    # Importing init: handlers.__init__ OR $handlers (shortcut)
     modules:
-        - handlers.private.start
+        - $handlers

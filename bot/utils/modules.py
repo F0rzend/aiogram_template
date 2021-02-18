@@ -17,14 +17,17 @@ class ModuleManager:
         self.root = Path(__file__).parent.parent
 
     def load_path(self, path: str):
+        """
+        Goes through all modules in path
+        and loads them.
+        """
 
         mod_paths = glob.glob(f"{self.root}/{path}/*.py")
 
         all_modules = [
             basename(module)[:-3]
             for module in mod_paths
-            if isfile(module)
-            and module.endswith(".py")
+            if isfile(module) and module.endswith(".py")
         ]
 
         for module in all_modules:
@@ -39,11 +42,11 @@ class ModuleManager:
             raise SystemExit()
 
         if not hasattr(imp_module, "setup"):
-            logging.error(f"Module <{module}> doesn't seem to have <setup>.")
+            logging.error(f"Module <{module}> doesn't have <setup>.")
             raise SystemExit()
 
         if not callable(imp_module.setup):
-            logging.error(f"<setup> is not callable in <{module}>.")
+            logging.error(f"Module <{module}> doesn't have callable <setup>.")
             raise SystemExit()
 
         try:
@@ -57,11 +60,17 @@ class ModuleManager:
 
     def load_all(self, modules: list):
         """
-        Iterates through modules and loads them
+        Iterates through modules and loads them.
         """
 
         for module in modules:
-            if isdir(f"{self.root}/{module}/"):
+
+            # Shortcut for %module%.__init__
+            if module.startswith("$"):
+                self.load(f"{module[1:]}.__init__")
+
+            elif isdir(f"{self.root}/{module}/"):
                 self.load_path(module)
+
             else:
                 self.load(module)

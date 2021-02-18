@@ -1,7 +1,7 @@
 from aiogram import Dispatcher
 
-from .private.start import StartHandler
+from .private.start import start
 
 
 def setup(dp: Dispatcher):
-    dp.message.register(StartHandler, commands=["start"])
+    dp.register_message_handler(start, commands=["start"])

@@ -1,14 +1,10 @@
-from typing import Any
+from aiogram import Dispatcher
+from aiogram.types import Message
 
-from aiogram.dispatcher.handler import MessageHandler
 
+async def start(m: Message):
+    """Responds to /start."""
 
-class StartHandler(MessageHandler):
-    """
-    This handler receives messages with `/start` command
-
-    Usage of Class-based handlers
-    """
-
-    async def handle(self) -> Any:
-        await self.event.answer(f"<b>Hello, {self.from_user.full_name}!</b>")
+    await m.answer(
+        f"Hello there, {m.from_user.first_name}!"
+    )
