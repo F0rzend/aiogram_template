@@ -1,0 +1,2 @@
+class ConfigNotSpecified(Exception):
+    pass

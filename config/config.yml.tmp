@@ -10,3 +10,6 @@ app:
     # Importing init: handlers.__init__ OR $handlers (shortcut)
     modules:
         - $handlers
+
+    superusers:
+        - 123456789

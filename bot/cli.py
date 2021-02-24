@@ -5,10 +5,8 @@ import os
 from collections import ChainMap
 from typing import NoReturn
 
-from rich.logging import RichHandler
-
 from .main import main
-from .utils import parse_config
+from .utils import parse_config, setup_logger
 
 
 def get_parser():
@@ -19,15 +17,10 @@ def get_parser():
 
 def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
     # Configure logging
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="%(message)s",
-        datefmt="%X |",
-        handlers=[RichHandler()],
-    )
+    setup_logger(level="DEBUG", ignored=['aiogram.bot.api'])
 
     if not environment_variables:
-        environment_variables = {"config": os.getenv("CONFIG_FILE")}
+        environment_variables = {"config": os.getenv("BOT_CONFIG_FILE")}
 
     args = get_parser().parse_args(argv)
     cli_arguments = {key: value for key, value in vars(args).items() if value}
