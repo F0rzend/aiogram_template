@@ -1,6 +1,6 @@
 from yaml import load
 
-from . import exceptions
+from . import trafaret, exceptions
 
 try:
     from yaml import CLoader as Loader
@@ -14,6 +14,9 @@ def parse_config(path):
     """
     try:
         with open(path) as file:
-            return load(file, Loader=Loader)
+            config = load(file, Loader=Loader)
     except TypeError:
-        raise exceptions.ConfigNotSpecified('Config file not found')
+        raise exceptions.ConfigNotSpecifiedError('Config file not found')
+
+    trafaret.config_trafaret.check(config)
+    return config

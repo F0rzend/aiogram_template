@@ -27,7 +27,6 @@ def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
     arguments = ChainMap(cli_arguments, environment_variables)
 
     config = parse_config(arguments["config"])
-    logging.warning(f'Config file: {arguments["config"]}')
     try:
         asyncio.run(main(config))
     except (KeyboardInterrupt, SystemExit):
