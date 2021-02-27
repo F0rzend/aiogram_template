@@ -52,13 +52,20 @@ class BaseBroadcast(abc.ABC):
             ]):
                 if not all([chat.get('chat_id') for chat in chats]):
                     raise ValueError('Not all dictionaries "chat_id" key')
-                if len(set([tuple(chat.keys()) for chat in chats])) != 1:
+                if not self._chek_identical_keys(dicts=chats):
                     raise ValueError('Not all dictionaries have identical keys')
                 self.chats = [
                     {'chat_id': args.pop('chat_id'), **args} for args in chats if args.get('chat_id', None)
                 ]
         else:
             raise TypeError(f'pwd: expected {Union[ChatIdsType, List[Dict]]}, got "type(chats)"')
+
+    @staticmethod
+    def _chek_identical_keys(dicts: list) -> bool:
+        for d in dicts[1:]:
+            if not sorted(d.keys()) == sorted(dicts[0].keys()):
+                return False
+        return True
 
     @abc.abstractmethod
     async def send(

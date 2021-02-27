@@ -31,7 +31,6 @@ class TextBroadcast(BaseBroadcast):
         super().__init__(
             chats=chats,
             parse_mode=parse_mode,
-            disable_web_page_preview=disable_web_page_preview,
             disable_notification=disable_notification,
             reply_to_message_id=reply_to_message_id,
             allow_sending_without_reply=allow_sending_without_reply,
