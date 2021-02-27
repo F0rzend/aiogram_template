@@ -10,13 +10,16 @@ from aiogram.utils import exceptions
 ChatIdType = Union[int, str]
 ChatIdsType = Union[List[ChatIdType], ChatIdType]
 ChatsType = Union[ChatIdsType, List[Dict]]
+TextType = Union[Template, str]
 
 
 class Broadcast:
     def __init__(
         self,
         chats: ChatsType,
-        text: Union[Template, str],
+        text: TextType = None,
+        caption: TextType = None,
+        photo: Union[types.InputFile, str] = None,
         parse_mode: Optional[str] = None,
         disable_web_page_preview: Optional[bool] = None,
         disable_notification: Optional[bool] = None,
@@ -34,7 +37,8 @@ class Broadcast:
         logger=__name__,
     ):
         self._setup_chats(chats)
-        self.text = Template(text) if isinstance(text, str) else text
+        self._set_text(text=text, caption=caption)
+        self.photo = photo
         self.parse_mode = parse_mode
         self.disable_web_page_preview = disable_web_page_preview
         self.disable_notification = disable_notification
@@ -48,6 +52,19 @@ class Broadcast:
             logger = logging.getLogger(logger)
 
         self.logger = logger
+
+    def _set_text(
+            self,
+            text: TextType = None,
+            caption: TextType = None,
+    ):
+        if not (text or caption):
+            raise ValueError('You must pass text or caption')
+        if caption:
+            msg_text = caption
+        else:
+            msg_text = text
+        self.text = Template(msg_text) if isinstance(msg_text, str) else msg_text
 
     def _setup_chats(self, chats: ChatsType):
         if isinstance(chats, int) or isinstance(chats, str):
@@ -84,16 +101,27 @@ class Broadcast:
         else:
             return False
         try:
-            await self.bot.send_message(
+            message_text = self.text.safe_substitute(text_args)
+            send_args = dict(
                 chat_id=chat_id,
-                text=self.text.safe_substitute(text_args),
                 parse_mode=self.parse_mode,
-                disable_web_page_preview=self.disable_web_page_preview,
                 disable_notification=self.disable_notification,
                 reply_to_message_id=self.reply_to_message_id,
                 allow_sending_without_reply=self.allow_sending_without_reply,
-                reply_markup=self.reply_markup,
+                reply_markup=self.reply_markup
             )
+            if self.photo:
+                await self.bot.send_photo(
+                    photo=self.photo,
+                    caption=message_text,
+                    **send_args,
+                )
+            else:
+                await self.bot.send_message(
+                    text=message_text,
+                    disable_web_page_preview=self.disable_web_page_preview,
+                    **send_args,
+                )
         except exceptions.RetryAfter as e:
             self.logger.debug(
                 f"Target [ID:{chat_id}]: Flood limit is exceeded. Sleep {e.timeout} seconds."
