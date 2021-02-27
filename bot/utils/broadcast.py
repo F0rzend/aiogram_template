@@ -66,7 +66,7 @@ class Broadcast:
             ]):
                 if not all([chat.get('chat_id') for chat in chats]):
                     raise ValueError('Not all dictionaries "chat_id" key')
-                if not (len(set([tuple(chat.keys()) for chat in chats])) == 1):
+                if len(set([tuple(chat.keys()) for chat in chats])) != 1:
                     raise ValueError('Not all dictionaries have identical keys')
                 self.chats = [
                     {'chat_id': args.pop('chat_id'), **args} for args in chats if args.get('chat_id', None)
