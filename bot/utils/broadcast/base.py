@@ -1,11 +1,11 @@
 import abc
 import asyncio
 import logging
-from typing import Union, Optional, List, Dict, NoReturn
+from typing import Optional, Dict, NoReturn
 
 from aiogram import Bot
 
-from . import ChatsType, ChatIdsType, MarkupType
+from . import ChatsType, MarkupType
 
 
 class BaseBroadcast(abc.ABC):
@@ -58,7 +58,7 @@ class BaseBroadcast(abc.ABC):
                     {'chat_id': args.pop('chat_id'), **args} for args in chats if args.get('chat_id', None)
                 ]
         else:
-            raise TypeError(f'pwd: expected {Union[ChatIdsType, List[Dict]]}, got "type(chats)"')
+            raise TypeError(f'argument chats: expected {ChatsType}, got "{type(chats)}"')
 
     @staticmethod
     def _chek_identical_keys(dicts: list) -> bool:
