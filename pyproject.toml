@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aiogram_template"
-version = "0.0.5"
+version = "0.1"
 description = "A template written in aiogram 3.0"
 authors = ["fonco <foncoofficial@gmail.com>"]
 repository = "https://github.com/fonco/aiogram_template"
