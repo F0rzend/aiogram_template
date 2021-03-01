@@ -1,29 +1,30 @@
+import logging
 from typing import Optional, Dict
 from asyncio import sleep
-from string import Template
 
 from aiogram import Bot
+from aiogram.types import Message
 from aiogram.utils import exceptions
 
 
-from . import ChatsType, TextType, MarkupType
+from . import ChatsType, MarkupType
 from .base import BaseBroadcast
 
 
-class TextBroadcast(BaseBroadcast):
+class CopyBroadcast(BaseBroadcast):
     def __init__(
         self,
         chats: ChatsType,
-        text: TextType,
+        message: Message,
+        caption: Optional[str] = None,
         parse_mode: Optional[str] = None,
-        disable_web_page_preview: Optional[bool] = None,
         disable_notification: Optional[bool] = None,
         reply_to_message_id: Optional[int] = None,
         allow_sending_without_reply: Optional[bool] = None,
         reply_markup: MarkupType = None,
         bot: Optional[Bot] = None,
         timeout: float = 0.02,
-        logger=__name__,
+        logger=__name__
     ):
         super().__init__(
             chats=chats,
@@ -36,8 +37,16 @@ class TextBroadcast(BaseBroadcast):
             timeout=timeout,
             logger=logger,
         )
-        self.text = Template(text) if isinstance(text, str) else text
-        self.disable_web_page_preview = disable_web_page_preview
+        self._setup_chats(chats)
+        self.message = message
+        self.caption = caption
+        self.bot = bot if bot else Bot.get_current()
+        self.timeout = timeout
+
+        if not isinstance(logger, logging.Logger):
+            logger = logging.getLogger(logger)
+
+        self.logger = logger
 
     async def send(
             self,
@@ -45,15 +54,13 @@ class TextBroadcast(BaseBroadcast):
     ) -> bool:
         if isinstance(chat, Dict):
             chat_id = chat.get('chat_id')
-            text_args = chat
         else:
             return False
         try:
-            await self.bot.send_message(
+            await self.message.copy_to(
                 chat_id=chat_id,
-                text=self.text.safe_substitute(text_args),
+                caption=self.caption,
                 parse_mode=self.parse_mode,
-                disable_web_page_preview=self.disable_web_page_preview,
                 disable_notification=self.disable_notification,
                 reply_to_message_id=self.reply_to_message_id,
                 allow_sending_without_reply=self.allow_sending_without_reply,
