@@ -1,2 +1,6 @@
-class ConfigNotSpecified(Exception):
+class ConfigNotSpecifiedError(Exception):
+    pass
+
+
+class WrongConfigError(ValueError):
     pass

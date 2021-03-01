@@ -1,17 +1,16 @@
-import logging
 from typing import List, Union
 
-from .broadcast import Broadcast
+from aiogram import md
 
-from aiogram.types import ReplyKeyboardRemove
+from .broadcast import TextBroadcast
 
 
 async def notify_superusers(chats: Union[List[int], List[str], int, str]):
-    count = await (
-        Broadcast(
-            users=chats,
-            text='<b>The bot is running!</b>',
-            reply_markup=ReplyKeyboardRemove(),
-        )
+    chats = [
+        {'chat_id': chat_id, 'mention': md.hlink(title=f'ID:{chat_id}', url=f'tg://user?id={chat_id}')}
+        for chat_id in chats
+    ]
+    await TextBroadcast(
+        chats=chats,
+        text=md.hbold('$mention, The bot is running!'),
     ).run()
-    logging.info(f"{count} users received start messages")
