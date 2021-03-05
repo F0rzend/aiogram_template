@@ -1,5 +1,5 @@
 # New template (This is unactual, do not use it)
-### It was decided to abandon the cookiecutter, as the template support is too complicated. You can find the new template at the following address https://github.com/F0rzend/aiogram-template
+### It was decided to abandon the cookiecutter, as the template support is too complicated. You can find the new template at the following address https://github.com/fonco/aiogram_template
 
 ## Aiogram bot template by [Forzend](https://t.me/Forzend)
 
