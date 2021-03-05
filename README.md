@@ -1,3 +1,6 @@
+# New template (This is unactual, do not use it)
+### It was decided to abandon the cookiecutter, as the template support is too complicated. You can find the new template at the following address https://github.com/F0rzend/aiogram-template
+
 ## Aiogram bot template by [Forzend](https://t.me/Forzend)
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/downloads/)
@@ -6,9 +9,6 @@
 [![Docker](https://img.shields.io/badge/Docker-Yes-success)](https://www.docker.com/get-started)
 
 Template based on [Forden's template](https://github.com/Forden/aiogram-bot-template) for creating scalable bots with aiogram
-
-# New template
-### It was decided to abandon the cookiecutter, as the template support is too complicated. You can find the new template at the following address https://github.com/F0rzend/aiogram-template
 
 ## Setting up
 
