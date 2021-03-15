@@ -28,7 +28,11 @@ def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
     setup_logger(level="DEBUG", ignored=["aiogram.bot.api"])
 
     if not environment_variables:
-        environment_variables = {"config": os.getenv("BOT_CONFIG_FILE")}
+        config_file = os.getenv("BOT_CONFIG_FILE")
+        if not config_file:
+            config_file = "config/config.yml"
+
+        environment_variables = {"config": config_file}
 
     args = get_parser().parse_args(argv)
     cli_arguments = {key: value for key, value in vars(args).items() if value}

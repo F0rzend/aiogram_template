@@ -10,6 +10,7 @@ help:
 	@echo "  make <commands>"
 	@echo ""
 	@echo "AVAILABLE COMMANDS"
+	@echo "  run		Start the bot"
 	@echo "  install	Install dependencies"
 	@echo "  update	Update dependencies"
 	@echo "  flake		Run flake8"
@@ -25,6 +26,10 @@ help:
 .PHONY: install
 install:
 	poetry install
+
+.PHONY: run
+run:
+	$(python) -m bot
 
 .PHONY: update
 update:
