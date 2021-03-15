@@ -1,15 +1,9 @@
 app:
     # Telegram Bot API Token
     bot:
-        token: {TOKEN}
+        token: BOT_TOKEN
         parse_mode: html
 
-    # Modules to load
-    # Importing certain modules: handlers.echo
-    # Importing certain folder: handlers; handlers/private
-    # Importing init: handlers.__init__ OR $handlers (shortcut)
-    modules:
-        - $handlers
-
+    # List of superusers
     superusers:
         - 123456789

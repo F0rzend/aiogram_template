@@ -1,6 +1,7 @@
 from typing import Dict, List, Tuple, Union
 
-from aiogram.types import CallbackGame, InlineKeyboardButton, InlineKeyboardMarkup, LoginUrl
+from aiogram.types import (CallbackGame, InlineKeyboardButton,
+                           InlineKeyboardMarkup, LoginUrl)
 from aiogram.utils.callback_data import CallbackData
 
 from .base import BaseMarkupConstructor

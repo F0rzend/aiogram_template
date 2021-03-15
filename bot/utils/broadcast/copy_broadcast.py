@@ -1,11 +1,10 @@
 import logging
-from typing import Optional, Dict
 from asyncio import sleep
+from typing import Dict, Optional
 
 from aiogram import Bot
 from aiogram.types import Message
 from aiogram.utils import exceptions
-
 
 from . import ChatsType, MarkupType
 from .base import BaseBroadcast
@@ -13,18 +12,18 @@ from .base import BaseBroadcast
 
 class CopyBroadcast(BaseBroadcast):
     def __init__(
-        self,
-        chats: ChatsType,
-        message: Message,
-        caption: Optional[str] = None,
-        parse_mode: Optional[str] = None,
-        disable_notification: Optional[bool] = None,
-        reply_to_message_id: Optional[int] = None,
-        allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: MarkupType = None,
-        bot: Optional[Bot] = None,
-        timeout: float = 0.02,
-        logger=__name__
+            self,
+            chats: ChatsType,
+            message: Message,
+            caption: Optional[str] = None,
+            parse_mode: Optional[str] = None,
+            disable_notification: Optional[bool] = None,
+            reply_to_message_id: Optional[int] = None,
+            allow_sending_without_reply: Optional[bool] = None,
+            reply_markup: MarkupType = None,
+            bot: Optional[Bot] = None,
+            timeout: float = 0.02,
+            logger=__name__
     ):
         super().__init__(
             chats=chats,

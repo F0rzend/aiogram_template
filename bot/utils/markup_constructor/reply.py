@@ -1,7 +1,8 @@
 from contextlib import suppress
 from typing import Dict, List, Union
 
-from aiogram.types import KeyboardButton, KeyboardButtonPollType, ReplyKeyboardMarkup
+from aiogram.types import (KeyboardButton, KeyboardButtonPollType,
+                           ReplyKeyboardMarkup)
 
 from .base import BaseMarkupConstructor
 
@@ -28,9 +29,9 @@ class ReplyMarkupConstructor(BaseMarkupConstructor):
                     return self.generate(actions, schema)
         """
     aliases = {
-        'request_contact':  'contact',
+        'request_contact': 'contact',
         'request_location': 'location',
-        'request_poll':     'poll'
+        'request_poll': 'poll'
     }
     available_properties = ['text', 'request_contact', 'request_location', 'request_poll']
     properties_amount = 2

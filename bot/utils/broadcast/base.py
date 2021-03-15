@@ -1,7 +1,7 @@
 import abc
 import asyncio
 import logging
-from typing import Optional, Dict, NoReturn
+from typing import Dict, NoReturn, Optional
 
 from aiogram import Bot
 
@@ -10,16 +10,16 @@ from . import ChatsType, MarkupType
 
 class BaseBroadcast(abc.ABC):
     def __init__(
-        self,
-        chats: ChatsType,
-        parse_mode: Optional[str] = None,
-        disable_notification: Optional[bool] = None,
-        reply_to_message_id: Optional[int] = None,
-        allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: MarkupType = None,
-        bot: Optional[Bot] = None,
-        timeout: float = 0.02,
-        logger=__name__,
+            self,
+            chats: ChatsType,
+            parse_mode: Optional[str] = None,
+            disable_notification: Optional[bool] = None,
+            reply_to_message_id: Optional[int] = None,
+            allow_sending_without_reply: Optional[bool] = None,
+            reply_markup: MarkupType = None,
+            bot: Optional[Bot] = None,
+            timeout: float = 0.02,
+            logger=__name__,
     ):
         self._setup_chats(chats)
         self.parse_mode = parse_mode

@@ -1,29 +1,28 @@
-from typing import Optional, Dict
 from asyncio import sleep
 from string import Template
+from typing import Dict, Optional
 
 from aiogram import Bot
 from aiogram.utils import exceptions
 
-
-from . import ChatsType, TextType, MarkupType
+from . import ChatsType, MarkupType, TextType
 from .base import BaseBroadcast
 
 
 class TextBroadcast(BaseBroadcast):
     def __init__(
-        self,
-        chats: ChatsType,
-        text: TextType,
-        parse_mode: Optional[str] = None,
-        disable_web_page_preview: Optional[bool] = None,
-        disable_notification: Optional[bool] = None,
-        reply_to_message_id: Optional[int] = None,
-        allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: MarkupType = None,
-        bot: Optional[Bot] = None,
-        timeout: float = 0.02,
-        logger=__name__,
+            self,
+            chats: ChatsType,
+            text: TextType,
+            parse_mode: Optional[str] = None,
+            disable_web_page_preview: Optional[bool] = None,
+            disable_notification: Optional[bool] = None,
+            reply_to_message_id: Optional[int] = None,
+            allow_sending_without_reply: Optional[bool] = None,
+            reply_markup: MarkupType = None,
+            bot: Optional[Bot] = None,
+            timeout: float = 0.02,
+            logger=__name__,
     ):
         super().__init__(
             chats=chats,

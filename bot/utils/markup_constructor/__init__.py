@@ -1,6 +1,8 @@
+from aiogram.types import (InlineKeyboardMarkup, KeyboardButtonPollType,
+                           ReplyKeyboardMarkup)
+
 from .inline import InlineMarkupConstructor
 from .reply import ReplyMarkupConstructor
-from aiogram.types import InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButtonPollType
 
 __all__ = (
     "InlineMarkupConstructor",

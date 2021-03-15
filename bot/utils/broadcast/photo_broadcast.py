@@ -1,10 +1,9 @@
-from typing import Union, Optional, Dict
 from asyncio import sleep
 from string import Template
+from typing import Dict, Optional, Union
 
 from aiogram import Bot, types
 from aiogram.utils import exceptions
-
 
 from . import ChatsType, TextType
 from .base import BaseBroadcast
@@ -12,21 +11,21 @@ from .base import BaseBroadcast
 
 class PhotoBroadcast(BaseBroadcast):
     def __init__(
-        self, chats: ChatsType,
-        photo: Union[types.InputFile, str],
-        caption: TextType = None,
-        parse_mode: Optional[str] = None,
-        disable_notification: Optional[bool] = None,
-        reply_to_message_id: Optional[int] = None,
-        allow_sending_without_reply: Optional[bool] = None,
-        reply_markup: Union[
-            types.InlineKeyboardMarkup,
-            types.ReplyKeyboardMarkup,
-            types.ReplyKeyboardRemove,
-            types.ForceReply,
-            None,
-        ] = None, bot: Optional[Bot] = None,
-        timeout: float = 0.02, logger=__name__
+            self, chats: ChatsType,
+            photo: Union[types.InputFile, str],
+            caption: TextType = None,
+            parse_mode: Optional[str] = None,
+            disable_notification: Optional[bool] = None,
+            reply_to_message_id: Optional[int] = None,
+            allow_sending_without_reply: Optional[bool] = None,
+            reply_markup: Union[
+                types.InlineKeyboardMarkup,
+                types.ReplyKeyboardMarkup,
+                types.ReplyKeyboardRemove,
+                types.ForceReply,
+                None,
+            ] = None, bot: Optional[Bot] = None,
+            timeout: float = 0.02, logger=__name__
     ):
         super().__init__(
             chats=chats,

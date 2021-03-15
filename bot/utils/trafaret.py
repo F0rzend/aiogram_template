@@ -11,21 +11,23 @@ app:
     superusers: list of int
 """
 
-
 import trafaret as t
 
-config_trafaret = t.Dict({
-    t.Key('app'):
-        t.Dict({
-            t.Key('bot'):
-                t.Dict({
-                    t.Key('token'): t.String,
-                    t.Key('connections_limit', optional=True): t.Int,
-                    t.Key('proxy', optional=True): t.String,
-                    t.Key('validate_token', optional=True): t.Bool,
-                    t.Key('parse_mode', optional=True): t.String,
-                }),
-            t.Key('modules'): t.List(t.String),
-            t.Key('superusers'): t.List(t.Int),
-        })
-})
+config_trafaret = t.Dict(
+    {
+        t.Key("app"): t.Dict(
+            {
+                t.Key("bot"): t.Dict(
+                    {
+                        t.Key("token"): t.String,
+                        t.Key("connections_limit", optional=True): t.Int,
+                        t.Key("proxy", optional=True): t.String,
+                        t.Key("validate_token", optional=True): t.Bool,
+                        t.Key("parse_mode", optional=True): t.String,
+                    }
+                ),
+                t.Key("superusers"): t.List(t.Int),
+            }
+        )
+    }
+)

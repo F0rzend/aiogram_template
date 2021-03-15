@@ -10,14 +10,22 @@ from .utils import parse_config, setup_logger
 
 
 def get_parser():
+    """
+    Generate argument parser
+    """
+
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--config", dest="config")
     return parser
 
 
 def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
+    """
+    Parse arguments
+    """
+
     # Configure logging
-    setup_logger(level="DEBUG", ignored=['aiogram.bot.api'])
+    setup_logger(level="DEBUG", ignored=["aiogram.bot.api"])
 
     if not environment_variables:
         environment_variables = {"config": os.getenv("BOT_CONFIG_FILE")}
@@ -30,4 +38,4 @@ def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
     try:
         asyncio.run(main(config))
     except (KeyboardInterrupt, SystemExit):
-        logging.info('Goodbye')
+        logging.info("Goodbye")

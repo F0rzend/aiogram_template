@@ -1,7 +1,8 @@
+from abc import ABC, abstractmethod
 from typing import List, Union
-from abc import abstractmethod, ABC
 
-from aiogram.types import InlineKeyboardButton, KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardMarkup
+from aiogram.types import (InlineKeyboardButton, InlineKeyboardMarkup,
+                           KeyboardButton, ReplyKeyboardMarkup)
 
 
 class BaseMarkupConstructor(ABC):
