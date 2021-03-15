@@ -17,7 +17,7 @@ Scalable and straightforward template for bots written on [aiogram](https://gith
 #### Poetry Deployment
 - **Note:** You need to have Poetry installed: `pip install poetry`;
 - Install dependencies: `make install`;
-- Rename `config.yaml.example` to `config.yaml` and replace a token placeholder with your own one;
+- Rename `config.yml.tmp` to `config.yml` and replace a token placeholder with your own one;
 - Start the bot: `make run`.
 
 **Tip**: set `BOT_CONFIG_FILE` environment variable to change config path. If no variable is specified, it'll assume it's located in `bot/config/config.yml`.
