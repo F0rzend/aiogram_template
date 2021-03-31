@@ -14,9 +14,9 @@ maintainers = [
 python = "^3.9"
 aiogram = "^2.12"
 PyYAML = "^5.4.1"
-trafaret = "^2.1.0"
 loguru = "^0.5.3"
-aiogram-broadcaster = "^0.0.1"
+aiogram-broadcaster = "^0"
+trafaret = "^2.1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"

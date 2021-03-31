@@ -17,3 +17,6 @@ config/*.yaml
 # Editor-specified files
 .vscode/
 .idea/
+
+# certificates
+*.pem
