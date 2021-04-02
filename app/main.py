@@ -1,15 +1,15 @@
-import asyncio
-
 from aiohttp import web
-from app.web.base import init_app
-from app.bot.base import run_bot
-
-from app.setting import APP_CONFIG_KEY
+from app.web.base import init_web_app
+from app.bot.base import init_bot
 
 
 def main(config: dict):
-    app = init_app(config)
-    app[APP_CONFIG_KEY] = config
-    loop = asyncio.get_event_loop()
-    loop.create_task(run_bot(app))
-    web.run_app(app)
+    app = init_web_app(config)
+    init_bot(app)
+
+    web.run_app(
+        app,
+        host=config["webapp"]["host"],
+        port=config["webapp"]["port"],
+        ssl_context=get_ssl_context('webhook_cert.pem', 'webhook_pkey.pem'),
+    )

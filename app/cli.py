@@ -1,5 +1,4 @@
 import argparse
-import asyncio
 import logging
 import os
 from collections import ChainMap
@@ -7,6 +6,7 @@ from typing import NoReturn
 
 from .main import main
 from .utils import parse_config, setup_logger
+from .setting import DEFAULT_CONFIG_PATH
 
 
 def get_parser():
@@ -25,12 +25,12 @@ def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
     """
 
     # Configure logging
-    setup_logger(level="DEBUG", ignored=["aiogram.bot.api", "asyncio"])
+    setup_logger(level="DEBUG", ignored=["aiogram.bot.api"])
 
     if not environment_variables:
         config_file = os.getenv("BOT_CONFIG_FILE")
         if not config_file:
-            config_file = "config/dev_config.yml"
+            config_file = DEFAULT_CONFIG_PATH
 
         environment_variables = {"config": config_file}
 

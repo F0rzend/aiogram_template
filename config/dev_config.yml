@@ -1,9 +1,0 @@
-app:
-    # Telegram Bot API Token
-    bot:
-        token: 1474246112:AAHLYP4jdD3OG9KCFcu7Bpb4_4LTBbpdUiE
-        parse_mode: html
-
-    # List of superusers
-    superusers:
-        - 525340304
