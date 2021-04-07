@@ -5,7 +5,7 @@ from collections import ChainMap
 from typing import NoReturn
 
 from .main import main
-from .utils import parse_config, setup_logger
+from .misc import config_parser, setup_logger
 from .setting import DEFAULT_CONFIG_PATH
 
 
@@ -38,7 +38,7 @@ def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
     cli_arguments = {key: value for key, value in vars(args).items() if value}
     arguments = ChainMap(cli_arguments, environment_variables)
 
-    config = parse_config(arguments["config"])
+    config = config_parser.load_config(arguments["config"])
     try:
         main(config)
     except (KeyboardInterrupt, SystemExit):

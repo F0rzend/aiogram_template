@@ -8,13 +8,19 @@ app:
         parse_mode: str (Optional)
     modules: list of str
     superusers: list of str
+
 api_server:
     host: str
     port: int
+
 webhook:
     host: str
     port: int
     path: str  # Must include a token
+    certificates:
+        public: webhook_cert.pem
+        private: webhook_pkey.pem
+
 webapp:
     host: str
     port: int
@@ -47,6 +53,10 @@ webhook_trafaret = t.Dict({
     t.Key("host"): t.String,
     t.Key("port"): t.Int,
     t.Key("path"): t.String,
+    t.Key("certificates"): t.Dict({
+        t.Key("public"): t.String,
+        t.Key("private"): t.String,
+    })
 })
 
 webapp_trafaret = t.Dict({

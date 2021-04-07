@@ -1,6 +1,7 @@
 from aiohttp import web
 from app.web.base import init_web_app
 from app.bot.base import init_bot
+from app.misc.certificates import get_ssl_context
 
 
 def main(config: dict):
