@@ -27,7 +27,7 @@ def generate_selfsigned_cert(
     key_size=2048,
     backend=None,
     serial_number=1000,
-    valid_time=None,
+    expire_days=None,
 ):
     """Generates self signed certificate for a hostname, and optional IP addresses."""
     import ipaddress
@@ -98,7 +98,7 @@ def generate_selfsigned_cert(
 def certificates_cli():
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--config", dest="config")
-    parser.add_argument('-v', '--valid-time', type=int, default=3650, dest='valid_time', action='store')
+    parser.add_argument('-e', '--expire-days', type=int, default=3650, dest='expire_days', action='store')
     config_file = os.getenv("BOT_CONFIG_FILE")
     if not config_file:
         config_file = DEFAULT_CONFIG_PATH
@@ -117,7 +117,7 @@ def certificates_cli():
         hostname=config['webhook']['host'],
         cert_path=cert_path,
         pkey_path=pkey_path,
-        valid_time=arguments['valid_time']
+        expire_days=arguments['expire_days']
     )
 
 
