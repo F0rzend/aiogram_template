@@ -16,6 +16,9 @@ webhook:
     host: 0.0.0.0
     port: 8443
     path: /bot{token}/api/
+    certificates:
+        public: webhook_cert.pem
+        private: webhook_pkey.pem
 
 webapp:
     host: 0.0.0.0
