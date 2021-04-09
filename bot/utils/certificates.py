@@ -77,7 +77,7 @@ def generate_selfsigned_cert(
             .public_key(key.public_key())
             .serial_number(serial_number)
             .not_valid_before(now)
-            .not_valid_after(now + timedelta(days=valid_time or 3650))
+            .not_valid_after(now + timedelta(days=expire_days or 3650))
             .add_extension(basic_contraints, False)
             .add_extension(san, False)
             .sign(key, hashes.SHA256(), default_backend())
