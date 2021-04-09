@@ -17,7 +17,18 @@ def get_ssh_certificate(webhook_cert: str):
         return f.read()
 
 
-def generate_selfsigned_cert(hostname, file_prefix='', ip_addresses=None, key=None):
+def generate_selfsigned_cert(
+    hostname,
+    cert_path='cert.pem',
+    pkey_path='pkey.pem',
+    ip_addresses=None,
+    key=None,
+    public_exponent=65537,
+    key_size=2048,
+    backend=None,
+    serial_number=1000,
+    valid_time=None,
+):
     """Generates self signed certificate for a hostname, and optional IP addresses."""
     import ipaddress
     try:
@@ -28,14 +39,14 @@ def generate_selfsigned_cert(hostname, file_prefix='', ip_addresses=None, key=No
         from cryptography.hazmat.primitives import serialization
         from cryptography.hazmat.primitives.asymmetric import rsa
     except ImportError:
-        raise ImportError('You need to install cryptography for generating self-signed cert')
+        raise ImportError('You need to pip install cryptography for generating self-signed cert')
 
     # Generate our key
     if key is None:
         key = rsa.generate_private_key(
-            public_exponent=65537,
-            key_size=2048,
-            backend=default_backend(),
+            public_exponent=public_exponent,
+            key_size=key_size,
+            backend=backend or default_backend(),
         )
 
     name = x509.Name([
@@ -64,9 +75,9 @@ def generate_selfsigned_cert(hostname, file_prefix='', ip_addresses=None, key=No
             .subject_name(name)
             .issuer_name(name)
             .public_key(key.public_key())
-            .serial_number(1000)
+            .serial_number(serial_number)
             .not_valid_before(now)
-            .not_valid_after(now + timedelta(days=10 * 365))
+            .not_valid_after(now + timedelta(days=valid_time or 3650))
             .add_extension(basic_contraints, False)
             .add_extension(san, False)
             .sign(key, hashes.SHA256(), default_backend())
@@ -78,19 +89,16 @@ def generate_selfsigned_cert(hostname, file_prefix='', ip_addresses=None, key=No
         encryption_algorithm=serialization.NoEncryption(),
     )
 
-    cert_file = file_prefix + '_cert.pem' if file_prefix else 'cert.pem'
-    with open(cert_file, 'wb') as f:
+    with open(cert_path, 'wb') as f:
         f.write(cert_pem)
-    key_file = file_prefix + '_pkey.pem' if file_prefix else 'pkey.pem'
-    with open(key_file, 'wb') as f:
+    with open(pkey_path, 'wb') as f:
         f.write(key_pem)
-
-    return cert_file, key_file
 
 
 def certificates_cli():
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--config", dest="config")
+    parser.add_argument('-v', '--valid-time', type=int, default=3650, dest='valid_time', action='store')
     config_file = os.getenv("BOT_CONFIG_FILE")
     if not config_file:
         config_file = DEFAULT_CONFIG_PATH
@@ -102,16 +110,15 @@ def certificates_cli():
     arguments = ChainMap(cli_arguments, environment_variables)
 
     config = parse_config(arguments["config"])
-    cert_prefix = config['webhook']['certificates']['public'].removesuffix('_cert.pem')
-    pkey_prefix = config['webhook']['certificates']['private'].removesuffix('_pkey.pem')
-    if cert_prefix != pkey_prefix:
-        return f'You need to pass same file prefix for cert and pkey.\nYou pass {cert_prefix} and {pkey_prefix}'
+    cert_path = config['webhook']['certificates']['public']
+    pkey_path = config['webhook']['certificates']['private']
 
-    cert_file, key_file = generate_selfsigned_cert(
+    generate_selfsigned_cert(
         hostname=config['webhook']['host'],
-        file_prefix=cert_prefix
+        cert_path=cert_path,
+        pkey_path=pkey_path,
+        valid_time=arguments['valid_time']
     )
-    return f'Generation was finished...\nCheck your {cert_file} and {key_file} files\n'
 
 
 if __name__ == '__main__':
@@ -120,5 +127,5 @@ if __name__ == '__main__':
     from bot.settings import DEFAULT_CONFIG_PATH
     from bot.utils.parse_config import parse_config
     from collections import ChainMap
-
-    print(certificates_cli())
+    certificates_cli()
+    print('Success')
