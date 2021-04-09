@@ -2,7 +2,7 @@ from typing import List, Union
 
 from aiogram import md
 
-from .broadcast import TextBroadcast
+from aiogram_broadcaster import TextBroadcaster
 
 
 async def notify_superusers(chats: Union[List[int], List[str], int, str]):
@@ -16,7 +16,7 @@ async def notify_superusers(chats: Union[List[int], List[str], int, str]):
     ]
 
     # Run broadcaster
-    await TextBroadcast(
+    await TextBroadcaster(
         chats=chats,
         text=md.hbold("$mention, The bot is running!"),
     ).run()

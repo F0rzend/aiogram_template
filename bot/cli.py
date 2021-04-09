@@ -1,11 +1,11 @@
 import argparse
-import asyncio
 import logging
 import os
 from collections import ChainMap
 from typing import NoReturn
 
 from .main import main
+from .settings import DEFAULT_CONFIG_PATH
 from .utils import parse_config, setup_logger
 
 
@@ -30,7 +30,7 @@ def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
     if not environment_variables:
         config_file = os.getenv("BOT_CONFIG_FILE")
         if not config_file:
-            config_file = "config/config.yml"
+            config_file = DEFAULT_CONFIG_PATH
 
         environment_variables = {"config": config_file}
 
@@ -40,6 +40,6 @@ def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
 
     config = parse_config(arguments["config"])
     try:
-        asyncio.run(main(config))
+        main(config)
     except (KeyboardInterrupt, SystemExit):
         logging.info("Goodbye")

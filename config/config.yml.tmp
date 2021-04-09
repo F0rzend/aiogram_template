@@ -1,9 +1,25 @@
 app:
     # Telegram Bot API Token
     bot:
-        token: BOT_TOKEN
+        token: 0123456789:AB1CD2EF3GH4IJ5KL6MN7PQ8RS9TU-VWXYZ
         parse_mode: html
 
     # List of superusers
     superusers:
         - 123456789
+
+api_server:
+    host: 0.0.0.0
+    port: 8081
+
+webhook:
+    host: 0.0.0.0
+    port: 8443
+    path: /bot{token}/api/
+    certificates:
+        public: webhook_cert.pem
+        private: webhook_pkey.pem
+
+webapp:
+    host: 0.0.0.0
+    port: 8443
