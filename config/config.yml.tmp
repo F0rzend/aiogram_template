@@ -7,19 +7,3 @@ app:
     # List of superusers
     superusers:
         - 123456789
-
-api_server:
-    host: 0.0.0.0
-    port: 8081
-
-webhook:
-    host: 0.0.0.0
-    port: 8443
-    path: /bot{token}/api/
-    certificates:
-        public: webhook_cert.pem
-        private: webhook_pkey.pem
-
-webapp:
-    host: 0.0.0.0
-    port: 8443

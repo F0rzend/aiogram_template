@@ -125,7 +125,7 @@ if __name__ == '__main__':
     import argparse
     import os
     from bot.settings import DEFAULT_CONFIG_PATH
-    from bot.utils.parse_config import parse_config
+    from bot.utils.config import parse_config
     from collections import ChainMap
     certificates_cli()
     print('Success')
