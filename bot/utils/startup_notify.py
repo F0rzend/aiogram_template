@@ -1,7 +1,6 @@
 from typing import List, Union
 
 from aiogram import md
-
 from aiogram_broadcaster import TextBroadcaster
 
 
