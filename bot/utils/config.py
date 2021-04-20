@@ -9,7 +9,7 @@ except ImportError:
     from yaml import Loader
 
 
-def parse_config(path):
+def parse_config(path, check=True):
     """
     Parse a config.
     """
@@ -19,5 +19,6 @@ def parse_config(path):
             config = load(file, Loader=Loader)
     except TypeError:
         raise exceptions.ConfigNotSpecifiedError("Config file not found")
-    config_trafaret.check(config)
+    if check:
+        config_trafaret.check(config)
     return config

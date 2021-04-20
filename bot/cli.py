@@ -1,5 +1,4 @@
 import argparse
-import asyncio
 import logging
 import os
 from collections import ChainMap
@@ -41,6 +40,6 @@ def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
 
     config = parse_config(arguments["config"])
     try:
-        asyncio.run(main(config))
+        main(config)
     except (KeyboardInterrupt, SystemExit):
         logging.info("Goodbye")

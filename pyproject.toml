@@ -17,6 +17,9 @@ PyYAML = "^5.4.1"
 loguru = "^0.5.3"
 aiogram-broadcaster = "^0"
 trafaret = "^2.1.0"
+SQLAlchemy = "^1.4.9"
+alembic = "^1.5.8"
+asyncpg = "^0.22.0"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"
