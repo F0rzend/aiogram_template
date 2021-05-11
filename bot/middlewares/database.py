@@ -4,6 +4,8 @@ from sqlalchemy.orm import Session, sessionmaker
 
 
 class DatabaseMiddleware(LifetimeControllerMiddleware):
+    skip_patterns = ['update']
+
     def __init__(self, pool):
         super(DatabaseMiddleware, self).__init__()
         self.pool: sessionmaker = pool
@@ -13,5 +15,5 @@ class DatabaseMiddleware(LifetimeControllerMiddleware):
         data["session"]: Session = session
 
     async def post_process(self, obj: TelegramObject, data: dict, *args):
-        if session := data["session"]:
+        if session := data.get('session', None):
             await session.close()

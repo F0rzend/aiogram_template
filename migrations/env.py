@@ -5,7 +5,7 @@ from sqlalchemy import engine_from_config, pool
 from sqlalchemy.engine import URL
 
 from bot.models.base import Base
-from bot.utils.parse_config import parse_config
+from bot.utils.config import parse_config
 
 config = context.config
 fileConfig(config.config_file_name)
