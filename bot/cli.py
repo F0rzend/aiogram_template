@@ -2,7 +2,7 @@ import argparse
 import logging
 import os
 from collections import ChainMap
-from typing import NoReturn
+from typing import Optional
 
 from .main import main
 from .settings import DEFAULT_CONFIG_PATH
@@ -19,13 +19,13 @@ def get_parser():
     return parser
 
 
-def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
+def cli(argv: Optional[dict] = None, environment_variables: Optional[dict] = None) -> None:
     """
     Parse arguments
     """
 
     # Configure logging
-    setup_logger(level="DEBUG", ignored=["aiogram.bot.api"])
+    setup_logger(ignored=["aiogram.bot.api"])
 
     if not environment_variables:
         config_file = os.getenv("BOT_CONFIG_FILE")
@@ -37,7 +37,6 @@ def cli(argv: dict = None, environment_variables: dict = None) -> NoReturn:
     args = get_parser().parse_args(argv)
     cli_arguments = {key: value for key, value in vars(args).items() if value}
     arguments = ChainMap(cli_arguments, environment_variables)
-
     config = parse_config(arguments["config"])
     try:
         main(config)

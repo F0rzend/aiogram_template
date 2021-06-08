@@ -20,6 +20,8 @@ trafaret = "^2.1.0"
 SQLAlchemy = "^1.4.9"
 alembic = "^1.5.8"
 asyncpg = "^0.22.0"
+sqlalchemy2-stubs = "^0.0.2-alpha.2"
+sqlalchemy-stubs = "^0.4"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"
