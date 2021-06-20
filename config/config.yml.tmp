@@ -1,9 +1,0 @@
-app:
-    # Telegram Bot API Token
-    bot:
-        token: 0123456789:AB1CD2EF3GH4IJ5KL6MN7PQ8RS9TU-VWXYZ
-        parse_mode: html
-
-    # List of superusers
-    superusers:
-        - 123456789
