@@ -42,12 +42,7 @@ class Config:
         t.Key("database"): database_trafaret,
     })
 
-    def __init__(self, path: Path = BASE_CONFIG_PATH, check: bool = True):
-        try:
-            with open(path) as file:
-                config = load(file, Loader=Loader)
-        except TypeError:
-            raise RuntimeError("Config file not found")
+    def __init__(self, config: dict, check: bool = True):
         if check:
             self.trafaret.check(config)
         self.config = config
@@ -63,7 +58,16 @@ class Config:
         if not config_path:
             env_config_path = os.getenv(CONFIG_ENV_NAME)
             config_path = env_config_path if env_config_path else BASE_CONFIG_PATH
-        return cls(config_path)
+        return cls.load(config_path)
+
+    @classmethod
+    def load(cls, path: Path = BASE_CONFIG_PATH) -> "Config":
+        try:
+            with open(path) as file:
+                config = load(file, Loader=Loader)
+        except TypeError:
+            raise RuntimeError("Config file not found")
+        return cls(config)
 
     def get_flatted(self, sep='.'):
         return flatten(self.config, 'config', sep=sep)
